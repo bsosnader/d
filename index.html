@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>This is the title of the webpage!</title>
+    <style>
+      html,
+      body { height: 100%;
+      }
+      .parent {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      }
+      #box {
+      background-color: #bebebe;
+      color: white;
+      font-size: 4em;
+      font-family: 'IBM Plex Sans', sans-serif;
+      text-align: center;
+      width: auto;
+      height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div id="box"></div>
+    </div>
+  </body>
+  <script>
+    const url='https://api.unsplash.com/photos/random?query=nature&auto=format&orientation=portrait&client_id=x8Nvd8yoZqrNSUFZDNgVqyBS3wWCgA13Zk3CMEPClJ0'
+    const words = [
+      "You are incredible",
+      "Remember to breathe",
+      "You amaze me",
+      "You got this",
+      "I have so much faith in you",
+      "You've got the right stuff",
+      "Your drive is inspiring",
+      "I think about you all the time",
+      "You're so cute ;)",
+      "Thanks for being you",
+      "I am so glad we met",
+      "You drive me wild",
+      "You do so much good",
+      "You make me warm and fuzzy",
+      "Ollie says: 'keep that chin up!'",
+      "I get butterflies talking to you",
+      "You are so passionate about life and it makes me too",
+      "I'd go anywhere with you",
+      "I wish I could hug you right now",
+      "You make the most of this adventure called life",
+      "You're truly something special",
+      "Don't give up",
+      "I can't believe I get to be your person :)",
+      "I smile when I think of you",
+      "You're awesome",
+      "You are so powerful",
+      "You're beautiful",
+      "I love hearing your voice",
+      "Remember you're not alone",
+      "I'm probably thinking about you right now",
+      "You're so damn smart",
+      "You inspire me to be better",
+      "Holding you is the best feeling in the world",
+      "Keep being your weird awesome self",
+      "I know you will beat any obstacle",
+      "Believe in yourself",
+      "You deserve the absolute best in life"
+    ];
+    fetch(url)
+      .then(data => { return data.json()})
+      .then(res => { 
+        console.log(res)
+        document.body.style.backgroundImage=`url(${res.urls.regular})`
+        document.body.style.backgroundSize="cover"
+        document.body.style.backgroundRepeat="no-repeat"
+        document.body.style.backgroundPosition="center"
+        var text = document.getElementById('box');
+        text.innerHTML = words[Math.floor(Math.random()*words.length)] 
+      });
+  </script>
+</html>
