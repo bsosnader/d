@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Hey Diana - now with cats!</title>
+    <style>
+      html,
+      body { height: 100%;
+      }
+      .parent {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      }
+      #box {
+      background-color: #bebebe;
+      color: white;
+      font-size: 2em;
+      font-family: 'IBM Plex Sans', sans-serif;
+      text-align: center;
+      width: auto;
+      height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div id="box"></div>
+    </div>
+  </body>
+  <script>
+    const url='https://api.thecatapi.com/v1/images/search?api_key=live_QEzleuisWnHOrD1VKFzBh8uozeMqszaNUTSsJHl6PO4VJQJDZlG0GRGuoYbFBVzW'
+    fetch(url)
+      .then(data => { return data.json()})
+      .then(res => { 
+        console.log(res)
+        document.body.style.backgroundImage=`url(${res[0].url})`
+        document.body.style.backgroundSize="cover"
+        document.body.style.backgroundRepeat="no-repeat"
+        document.body.style.backgroundPosition="center"
+      });
+    const url2 = "https://type.fit/api/quotes";
+    async function getapi(url)
+    {
+        const response = await fetch(url);
+        var data = await response.json();
+        console.log(data);
+        localStorage['quotes'] = JSON.stringify(data);
+        var text = document.getElementById('box');
+        text.innerHTML = "wise cat says: \"" + data[Math.floor(Math.random()*data.length)].text + "\""
+    }
+    var stored = localStorage['timeOfFetch'];
+    if (stored)
+    {
+        var lastFetch = Date.parse(stored)
+        var now = new Date()
+        var seconds = (now - lastFetch) / 1000;
+        if (seconds > 3600)
+        {
+            getapi(url2);
+            localStorage['timeOfFetch'] = now;
+        }
+
+    }
+    else
+    {
+        getapi(url2);
+        console.log("hello")
+        localStorage['timeOfFetch'] = new Date()
+    }
+
+    var text = document.getElementById('box');
+    var quotes = JSON.parse(localStorage['quotes'])
+    text.innerHTML = "wise cat says: \"" + quotes[Math.floor(Math.random()*quotes.length)].text + "\""
+  </script>
+</html>
